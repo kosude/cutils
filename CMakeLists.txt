@@ -49,3 +49,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" AND CUTILS_TESTS)
 
     add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/tests")
 endif()
+
+option(CUTILS_DOCS "Build static cutils HTML documentation" OFF)
+
+if (CUTILS_DOCS)
+    add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/docs")
+endif()
