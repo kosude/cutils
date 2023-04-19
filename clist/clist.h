@@ -12,24 +12,57 @@
     extern "C" {
 #endif // __cplusplus
 
+#include <stdint.h>
+
 
 /************************************************************************/
 /*                           cutils public API                          */
 /************************************************************************/
 
 typedef struct clist_t clist_t;
+typedef void *clistiter_t;
+typedef intptr_t clistval_t;
 
 int clistpush(
     clist_t **dest,
-    void *value
+    clistval_t value
 );
 
-void *clistpop(
+clistval_t clistpop(
     clist_t **dest
 );
 
 void clistfree(
     clist_t **dest
+);
+
+unsigned int clistlen(
+    clist_t *list
+);
+
+clistval_t clistget(
+    clist_t *list,
+    unsigned int index
+);
+
+clistiter_t clistbegin(
+    clist_t *list
+);
+
+clistiter_t clistend(
+    clist_t *list
+);
+
+clistiter_t clistitrnext(
+    clistiter_t it
+);
+
+clistiter_t clistitrprev(
+    clistiter_t it
+);
+
+clistval_t clistitrget(
+    clistiter_t it
 );
 
 #ifdef __cplusplus

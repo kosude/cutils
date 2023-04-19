@@ -11,7 +11,7 @@
 
 // opaque def for internal list node struct
 typedef struct __clistnode_t {
-    void *value;
+    clistval_t value;
 
     struct __clistnode_t *next;
     struct __clistnode_t *prev;
@@ -30,7 +30,7 @@ typedef struct clist_t {
 /*                           cutils public API                          */
 /************************************************************************/
 
-int clistpush(clist_t **dest, void *value) {
+int clistpush(clist_t **dest, clistval_t value) {
     __clistnode_t *node = malloc(sizeof(__clistnode_t));
     if (!node) {
         return 0;
@@ -70,8 +70,8 @@ int clistpush(clist_t **dest, void *value) {
     return ++list->length;
 }
 
-void *clistpop(clist_t **dest) {
-    void *buf = NULL;
+clistval_t clistpop(clist_t **dest) {
+    clistval_t buf = 0;
 
     clist_t *list = (*dest);
 
@@ -105,12 +105,48 @@ void *clistpop(clist_t **dest) {
 }
 
 void clistfree(clist_t **dest) {
-    if (!(*dest)) {
+    clist_t *list = (*dest);
+
+    if (!list) {
         return;
     }
 
     // list is silently freed when the last element is detached
-    for (unsigned int i = 0; i < (*dest)->length; i++) {
+    for (unsigned int i = 0; i < list->length; i++) {
         clistpop(dest);
     }
+}
+
+unsigned int clistlen(clist_t *list) {
+    return list->length;
+}
+
+clistval_t clistget(clist_t *list, unsigned int index) {
+    __clistnode_t *headptr = list->head;
+
+    for (unsigned int i = 0; i < index; i++) {
+        headptr = headptr->next;
+    }
+
+    return headptr->value;
+}
+
+clistiter_t clistbegin(clist_t *list) {
+    return (clistiter_t) list->head;
+}
+
+clistiter_t clistend(clist_t *list) {
+    return (clistiter_t) list->tail;
+}
+
+clistiter_t clistitrnext(clistiter_t it) {
+    return (clistiter_t) ((__clistnode_t *) it)->next;
+}
+
+clistiter_t clistitrprev(clistiter_t it) {
+    return (clistiter_t) ((__clistnode_t *) it)->prev;
+}
+
+clistval_t clistitrget(clistiter_t it) {
+    return ((__clistnode_t *) it)->value;
 }
