@@ -57,7 +57,6 @@ int clistpush(clist_t **dest, void *value) {
         list->tail = NULL;
         list->length = 0;
     } else {
-        // other nodes presumed to exist so current tail is attached to `node`
         if (list->tail) {
             list->tail->next = node;
         }
@@ -88,7 +87,7 @@ void *clistpop(clist_t **dest) {
     if (list->length <= 0) {
         // detaching final node, i.e. clearing the list ... we can free the list
         free(list);
-        list = (*dest) = NULL;
+        (*dest) = NULL; // ensure that *dest is also set to NULL so the list can be 'reused' by the user
     }
     else {
         // still existing nodes: detach current tail from the node before (the new tail)
@@ -103,4 +102,15 @@ void *clistpop(clist_t **dest) {
     cur_tail = NULL;
 
     return buf;
+}
+
+void clistfree(clist_t **dest) {
+    if (!(*dest)) {
+        return;
+    }
+
+    // list is silently freed when the last element is detached
+    for (unsigned int i = 0; i < (*dest)->length; i++) {
+        clistpop(dest);
+    }
 }

@@ -28,6 +28,10 @@ void *clistpop(
     clist_t **dest
 );
 
+void clistfree(
+    clist_t **dest
+);
+
 #ifdef __cplusplus
     }
 #endif // __cplusplus

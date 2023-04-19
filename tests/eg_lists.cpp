@@ -29,4 +29,6 @@ TEST(lists, list_creation) {
 
     ASSERT_EQ(__ptoi(clistpop(&list)), 120);
     ASSERT_EQ(__ptoi(clistpop(&list)), 235);
+
+    clistfree(&list);
 }
