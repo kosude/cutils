@@ -32,7 +32,12 @@ endif()
 
 option(CUTILS_CLIST "Build clist library" ON)
 if (CUTILS_CLIST)
-    add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/clist")
+    add_library("clist" ${LIB_BUILD_TYPE}
+        "clist/clist.c"
+    )
+
+    target_include_directories("clist" PUBLIC "${CMAKE_CURRENT_LIST_DIR}/clist")
+    target_compile_options("clist" PRIVATE ${CUTILS_COMPILE_OPTIONS})
 endif()
 
 option(CUTILS_TESTS "Build cutils unit tests (only with -DCMAKE_BUILD_TYPE=Debug)" OFF)
@@ -40,7 +45,7 @@ option(CUTILS_TESTS "Build cutils unit tests (only with -DCMAKE_BUILD_TYPE=Debug
 # again assuming here that only lib developers are building in debug; users do not need tests for production use i.e. release config.
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" AND CUTILS_TESTS)
     enable_testing()
-    add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/vendor/googletest")
+    add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/deps/googletest")
 
     add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/tests")
 endif()
