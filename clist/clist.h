@@ -17,7 +17,16 @@
 /*                           cutils public API                          */
 /************************************************************************/
 
-void firstfn();
+typedef struct clist_t clist_t;
+
+int clistpush(
+    clist_t **dest,
+    void *value
+);
+
+void *clistpop(
+    clist_t **dest
+);
 
 #ifdef __cplusplus
     }
