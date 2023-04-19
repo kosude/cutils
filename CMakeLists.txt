@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project("cutils" C CXX)
 
-option(CUTILS_TESTS "Build cutils unit tests" OFF)
-
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 if (NOT CMAKE_BUILD_TYPE)
     message(WARNING "Missing build configuration type! Defaulted to RELEASE. If this is not ideal, reconfigure project with option -DCMAKE_BUILD_TYPE=(Debug|Release)")

@@ -1,0 +1,23 @@
+name: Build and deploy documentation
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build project with HTML documentation
+        run: cmake . -B ${GITHUB_WORKSPACE}/build/ -DCMAKE_BUILD_TYPE=Release -DCUTILS_DOCS=ON
+          && touch ${GITHUB_WORKSPACE}/build/docs/html/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build/docs/html
