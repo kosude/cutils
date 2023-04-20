@@ -70,6 +70,37 @@ int clistpush(clist_t **dest, clistval_t value) {
     return ++list->length;
 }
 
+int clistinsert(clist_t **dest, clistval_t value, unsigned int index) {
+    clist_t *list = (*dest);
+
+    if (!list || index == list->length) {
+        return clistpush(dest, value);
+    }
+
+    __clistnode_t *node = malloc(sizeof(__clistnode_t));
+    if (!node) {
+        return 0;
+    }
+
+    node->value = value;
+
+    // node after the newly inserted node
+    __clistnode_t *after_new = clistat(list, index);
+    node->next = after_new;
+    node->prev = after_new->prev;
+
+    if (after_new->prev) {
+        after_new->prev->next = node;
+    }
+    after_new->prev = node;
+
+    if (after_new == list->head) {
+        list->head = node;
+    }
+
+    return ++list->length;
+}
+
 clistval_t clistpop(clist_t **dest) {
     clistval_t buf = 0;
 
@@ -96,10 +127,51 @@ clistval_t clistpop(clist_t **dest) {
     }
 
     // current tail now detached, will be freed, data to be returned.
-    buf = (cur_tail)->value;
+    buf = cur_tail->value;
 
     free(cur_tail);
     cur_tail = NULL;
+
+    return buf;
+}
+
+clistval_t clistremove(clist_t **dest, unsigned int index) {
+    clistval_t buf = 0;
+
+    clist_t *list = (*dest);
+
+    __clistnode_t *node = clistat(list, index);
+
+    if (!node) {
+        return buf;
+    }
+
+    list->length--;
+
+    if (list->length <= 0) {
+        // detaching final node, i.e. clearing the list ... we can free the list
+        free(list);
+        (*dest) = NULL; // ensure that *dest is also set to NULL so the list can be 'reused' by the user
+    } else {
+        if (node->prev) {
+            node->prev->next = node->next;
+        }
+        if (node->next) {
+            node->next->prev = node->prev;
+        }
+    }
+
+    if (list->head == node) {
+        list->head = node->next;
+    }
+    if (list->tail == node) {
+        list->tail = node->prev;
+    }
+
+    buf = node->value;
+
+    free(node);
+    node = NULL;
 
     return buf;
 }
@@ -139,7 +211,7 @@ clistitr_t clistend(clist_t *list) {
 clistitr_t clistat(clist_t *list, unsigned int index) {
     __clistnode_t *headptr = list->head;
 
-    for (unsigned int i = 0; i < index; i++) {
+    for (unsigned int i = 0; i < index && headptr != NULL; i++) {
         headptr = headptr->next;
     }
 

@@ -28,8 +28,19 @@ int clistpush(
     clistval_t value
 );
 
+int clistinsert(
+    clist_t **dest,
+    clistval_t value,
+    unsigned int index
+);
+
 clistval_t clistpop(
     clist_t **dest
+);
+
+clistval_t clistremove(
+    clist_t **dest,
+    unsigned int index
 );
 
 void clistfree(
