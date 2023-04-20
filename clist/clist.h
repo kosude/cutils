@@ -20,7 +20,7 @@
 /************************************************************************/
 
 typedef struct clist_t clist_t;
-typedef void *clistiter_t;
+typedef void *clistitr_t;
 typedef intptr_t clistval_t;
 
 int clistpush(
@@ -45,24 +45,29 @@ clistval_t clistget(
     unsigned int index
 );
 
-clistiter_t clistbegin(
+clistitr_t clistbegin(
     clist_t *list
 );
 
-clistiter_t clistend(
+clistitr_t clistend(
     clist_t *list
 );
 
-clistiter_t clistitrnext(
-    clistiter_t it
+clistitr_t clistat(
+    clist_t *list,
+    unsigned int index
 );
 
-clistiter_t clistitrprev(
-    clistiter_t it
+clistitr_t clistitrnext(
+    clistitr_t it
+);
+
+clistitr_t clistitrprev(
+    clistitr_t it
 );
 
 clistval_t clistitrget(
-    clistiter_t it
+    clistitr_t it
 );
 
 #ifdef __cplusplus

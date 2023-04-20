@@ -111,8 +111,11 @@ void clistfree(clist_t **dest) {
         return;
     }
 
+    // store len in buffer as clistpop() decrements it
+    unsigned int lenbuf = list->length;
+
     // list is silently freed when the last element is detached
-    for (unsigned int i = 0; i < list->length; i++) {
+    for (unsigned int i = 0; i < lenbuf; i++) {
         clistpop(dest);
     }
 }
@@ -122,31 +125,35 @@ unsigned int clistlen(clist_t *list) {
 }
 
 clistval_t clistget(clist_t *list, unsigned int index) {
+    return ((__clistnode_t *) clistat(list, index))->value;
+}
+
+clistitr_t clistbegin(clist_t *list) {
+    return (clistitr_t) list->head;
+}
+
+clistitr_t clistend(clist_t *list) {
+    return (clistitr_t) list->tail;
+}
+
+clistitr_t clistat(clist_t *list, unsigned int index) {
     __clistnode_t *headptr = list->head;
 
     for (unsigned int i = 0; i < index; i++) {
         headptr = headptr->next;
     }
 
-    return headptr->value;
+    return headptr;
 }
 
-clistiter_t clistbegin(clist_t *list) {
-    return (clistiter_t) list->head;
+clistitr_t clistitrnext(clistitr_t it) {
+    return (clistitr_t) ((__clistnode_t *) it)->next;
 }
 
-clistiter_t clistend(clist_t *list) {
-    return (clistiter_t) list->tail;
+clistitr_t clistitrprev(clistitr_t it) {
+    return (clistitr_t) ((__clistnode_t *) it)->prev;
 }
 
-clistiter_t clistitrnext(clistiter_t it) {
-    return (clistiter_t) ((__clistnode_t *) it)->next;
-}
-
-clistiter_t clistitrprev(clistiter_t it) {
-    return (clistiter_t) ((__clistnode_t *) it)->prev;
-}
-
-clistval_t clistitrget(clistiter_t it) {
+clistval_t clistitrget(clistitr_t it) {
     return ((__clistnode_t *) it)->value;
 }

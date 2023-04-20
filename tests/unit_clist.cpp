@@ -61,7 +61,7 @@ TEST(iteration, with_iterator) {
 
     unsigned int i = 0;
 
-    for (clistiter_t it = clistbegin(list); it != NULL; it = clistitrnext(it), i++) {
+    for (clistitr_t it = clistbegin(list); it != NULL; it = clistitrnext(it), i++) {
         ASSERT_EQ(clistitrget(it), vals1[i]);
     }
 
@@ -73,7 +73,7 @@ TEST(iteration, with_iterator) {
 
     i = 0;
 
-    for (clistiter_t it = clistbegin(list); it != NULL; it = clistitrnext(it), i++) {
+    for (clistitr_t it = clistbegin(list); it != NULL; it = clistitrnext(it), i++) {
         ASSERT_EQ(clistitrget(it), vals2[i]);
     }
 }
