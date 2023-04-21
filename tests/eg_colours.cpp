@@ -11,9 +11,5 @@
 #include <iostream>
 
 int main() {
-    ciocolset(CIOCOL_GREEN, 0xff, nullptr);
-
-    std::cout << "Hello world" << std::endl;
-
-    ciocoldef(nullptr);
+    std::cout << ciocol(CIOCOL_RED, 0xff).code << "Hello world" << ciocoldef().code << std::endl;
 }

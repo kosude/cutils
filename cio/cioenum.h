@@ -17,6 +17,9 @@
 /*                           cutils public API                          */
 /************************************************************************/
 
+/**
+ * An enumerator containing available console output colour options. This type is separately provided by <cioenum.h>.
+ */
 typedef enum ciocol_t {
     CIOCOL_BLACK =  0x0,
     CIOCOL_DKBLUE =  0x1,

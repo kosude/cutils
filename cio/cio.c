@@ -12,6 +12,7 @@
 #   include <Windows.h>
 #else
 #   include <stdio.h>
+#   include <string.h>
 #endif
 
 #if defined(__unix__) || defined(__unix)
@@ -62,7 +63,34 @@
     }
 #endif
 
-void ciocolset(uint8_t fg, uint8_t bg, FILE *stream) {
+ciocolbuf_t ciocol(uint8_t fg, uint8_t bg) {
+#   if defined(_WIN32)
+        ciocolstateset(fg, bg, NULL);
+        return (ciocolbuf_t) { "" };
+#   endif
+
+    ciocolbuf_t buf = { 0 };
+    snprintf(buf.code, 15,
+        "\033[%s%s%sm",
+        (fg != 0xFF) ? __getfgcode(fg) : "0",
+        (bg != 0xFF) ? ";" : "",
+        (bg != 0xFF) ? __getbgcode(bg) : ""
+    );
+    return buf;
+}
+
+ciocolbuf_t ciocoldef() {
+#   if defined(_WIN32)
+        ciocolstatedef(NULL);
+        return (ciocolbuf_t) { "" };
+#   endif
+
+    ciocolbuf_t buf = { 0 };
+    snprintf(buf.code, 15, "\033[0m");
+    return buf;
+}
+
+void ciocolstateset(uint8_t fg, uint8_t bg, FILE *stream) {
     if (fg == 0xFF && bg == 0xFF) {
         // no values given
         return;
@@ -91,16 +119,11 @@ void ciocolset(uint8_t fg, uint8_t bg, FILE *stream) {
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, bg << 4 | fg);
 #   elif defined(__unix__) || defined(__unix)
-        fprintf(stream,
-            "\033[%s%s%sm",
-            (fg != 0xFF) ? __getfgcode(fg) : "0",
-            (bg != 0xFF) ? ";" : "",
-            (bg != 0xFF) ? __getbgcode(bg) : ""
-        );
+        fprintf(stream, ciocol(fg, bg).code);
 #   endif
 }
 
-void ciocoldef(FILE *stream) {
+void ciocolstatedef(FILE *stream) {
     if (!stream) {
         stream = stdout;
     }
@@ -110,6 +133,6 @@ void ciocoldef(FILE *stream) {
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, 7);
 #   elif defined(__unix__) || defined(__unix)
-        fprintf(stream, "\033[0m");
+        fprintf(stream, ciocoldef().code);
 #   endif
 }
