@@ -42,13 +42,16 @@
                         <h4 class="index-heading">Data types</h4>
                         <ul>
                             <li><a href="#ciocol_t">ciocol_t</a></li>
+                            <li><a href="#ciocolbuf_t">ciocolbuf_t</a></li>
                         </ul>
                     </section>
                     <section>
                         <h4 class="index-heading">Output colourisation</h4>
                         <ul>
-                            <li><a href="#ciocolset">ciocolset()</a></li>
+                            <li><a href="#ciocol">ciocol()</a></li>
                             <li><a href="#ciocoldef">ciocoldef()</a></li>
+                            <li><a href="#ciocolstateset">ciocolstateset()</a></li>
+                            <li><a href="#ciocolstatedef">ciocolstatedef()</a></li>
                         </ul>
                     </section>
                 </section>
@@ -68,6 +71,41 @@
                             An enumerator containing available console output colour options. This type is separately provided by
                             <code><b>&lt;cioenum.h&gt;</b></code>.
                         </p>
+
+                        <h3>Enumerator values</h3>
+                        <ul>
+                            <li><b><code>CIOCOL_BLACK</code></b></li>
+                            <li><b><code>CIOCOL_DKBLUE</code></b></li>
+                            <li><b><code>CIOCOL_DKGREEN</code></b></li>
+                            <li><b><code>CIOCOL_LTBLUE</code></b></li>
+                            <li><b><code>CIOCOL_DKRED</code></b></li>
+                            <li><b><code>CIOCOL_MAGENTA</code></b></li>
+                            <li><b><code>CIOCOL_ORANGE</code></b></li>
+                            <li><b><code>CIOCOL_LTGREY</code></b></li>
+                            <li><b><code>CIOCOL_GREY</code></b></li>
+                            <li><b><code>CIOCOL_BLUE</code></b></li>
+                            <li><b><code>CIOCOL_GREEN</code></b></li>
+                            <li><b><code>CIOCOL_CYAN</code></b></li>
+                            <li><b><code>CIOCOL_RED</code></b></li>
+                            <li><b><code>CIOCOL_PINK</code></b></li>
+                            <li><b><code>CIOCOL_YELLOW</code></b></li>
+                            <li><b><code>CIOCOL_WHITE</code></b></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 id="ciocolbuf_t"><code>ciocolbuf_t</code></h2>
+
+                        <h3>Members</h3>
+                        <ul>
+                            <li><code><b>code</b></code> colour code for UNIX systems.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            A buffer structure to hold a console colour code string. This structure is used to return console colour codes as strings
+                            from functions such as <a href="#ciocol">ciocol()</a>.
+                        </p>
                     </section>
                 </section>
 
@@ -76,7 +114,49 @@
 
                 <section>
                     <section>
-                        <h2 id="ciocolset"><code>void ciocolset(uint8_t fg, uint8_t bg, FILE *stream)</code></h2>
+                        <h2 id="ciocol"><code>ciocolbuf_t ciocol(uint8_t fg, uint8_t bg)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>fg</b></code> foreground colour (either integer or ciocol_t enum).</li>
+                            <li><code><b>bg</b></code> background colour (either integer or ciocol_t enum).</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>A constant buffer structure with string containing a colour code.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            For UNIX systems, return a <a href="ciocolbuf_t">ciocolbuf_t</a> containing a string holding a colour code that can be
+                            printed to an output stream to set the following output colour. For Windows systems, set the current state output colour,
+                            and return with an empty string.
+                            <br><br>
+                            Pass <code>0xFF</code> to fg or bg to skip that colour value.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="ciocoldef"><code>ciocolbuf_t ciocoldef()</code></h2>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>A constant buffer structure with string containing a colour code.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            For UNIX systems, return a <a href="ciocolbuf_t">ciocolbuf_t</a> containing a string holding a colour code that can be
+                            printed to an output stream to set the following output colour. For Windows systems, set the current state output colour,
+                            and return with an empty string.
+                            <br><br>
+                            The returned colour code/state update on Windows is the <b>default console output colour</b>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="ciocolstateset"><code>void ciocolstateset(uint8_t fg, uint8_t bg, FILE *stream)</code></h2>
 
                         <h3>Arguments</h3>
                         <ul>
@@ -95,7 +175,7 @@
                     </section>
 
                     <section>
-                        <h2 id="ciocoldef"><code>void ciocoldef(FILE *stream)</code></h2>
+                        <h2 id="ciocolstatedef"><code>void ciocolstatedef(FILE *stream)</code></h2>
 
                         <h3>Arguments</h3>
                         <ul>
