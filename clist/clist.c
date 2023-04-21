@@ -193,6 +193,9 @@ void clistfree(clist_t **dest) {
 }
 
 unsigned int clistlen(clist_t *list) {
+    if (!list) {
+        return 0;
+    }
     return list->length;
 }
 
@@ -201,14 +204,24 @@ clistval_t clistget(clist_t *list, unsigned int index) {
 }
 
 clistitr_t clistbegin(clist_t *list) {
+    if (!list) {
+        return NULL;
+    }
     return (clistitr_t) list->head;
 }
 
 clistitr_t clistend(clist_t *list) {
+    if (!list) {
+        return NULL;
+    }
     return (clistitr_t) list->tail;
 }
 
 clistitr_t clistat(clist_t *list, unsigned int index) {
+    if (!list) {
+        return NULL;
+    }
+
     __clistnode_t *headptr = list->head;
 
     for (unsigned int i = 0; i < index && headptr != NULL; i++) {
