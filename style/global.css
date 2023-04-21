@@ -68,3 +68,7 @@ button {
 footer {
     text-align: center;
 }
+
+span.parent {
+    font-weight: lighter;
+}

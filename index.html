@@ -9,12 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style/global.css">
-<link rel="stylesheet" href="style/header.css">
-<link rel="stylesheet" href="style/notes.css">
-<link rel="stylesheet" href="style/responsive.css">
+<link rel="stylesheet" href="/style/global.css">
+<link rel="stylesheet" href="/style/header.css">
+<link rel="stylesheet" href="/style/notes.css">
+<link rel="stylesheet" href="/style/responsive.css">
 
-<link id="favicon" rel="shortcut icon" href="favicon.png" type="image/x-icon">
+<link id="favicon" rel="shortcut icon" href="/favicon.png" type="image/x-icon">
 
 	</head>
 
@@ -23,8 +23,8 @@
     <h1>cutils.documentation</h1>
 
     <nav id="nav-links">
-        <a href="index.html">home</a>
-        <a href="clist.html">clist</a>
+        <a href="/">home</a>
+        <a href="/clist">clist</a>
     </nav>
 
     <hr>
@@ -32,16 +32,16 @@
 
 
         <div class="wrapper">
-            <h1>Welcome to the C Utility Library Documentation Webpage</h1>
+            <h1>Welcome to the C Utils Project Official Documentation Site</h1>
 
             <section id="summary">
                 <h2>Summary</h2>
 
                 <p>
-                    The C Utils library, a.k.a. <code>cutils</code>, is a set of <b>modular, lightweight libraries</b> providing basic, common utilities
-                    for C/C++ projects. I am a student and these libraries exist primarily for learning and personal use, not geared towards production
-                    or professional use cases. In the name of good practice <i>(and for the small chance someone sees this in the future!)</i> I am still
-                    putting effort into its documentation.
+                    The C Utils Project, a.k.a. <code>cutils</code>, is a set of <b>modular, lightweight libraries</b> providing basic, common
+                    utilities for C/C++ projects. I am a student and these libraries exist primarily for learning and personal use, not geared towards
+                    production or professional use cases. In the name of good practice <i>(and for the small chance someone sees this in the future!)
+                    </i> I am still putting effort into its documentation.
 
                     <br><br>
 
@@ -50,9 +50,102 @@
 
                     <br><br>
 
-                    The C Utils library, cutils, is Free and Open Source Software, and the source repository can be found
-                    <a href="https://github.com/kosude/cutils">here</a>.
+                    The C Utils Project, cutils, is Free and Open Source Software, and the source repository can be found
+                    <a href="https://github.com/kosude/cutils">here</a>. I am not affiliated with the C Standard, any compilers, or other projects of
+                    a similar name.
                 </p>
+            </section>
+
+            <section id="libraries">
+                <h2>Libraries</h2>
+
+                <p>
+                    As mentioned earlier, the C Utils Project is not actually a library itself, but rather a collection of smaller libraries that can
+                    be used independent of each other. These libraries are limited to the key features they aim to provide, and so they are
+                    lightweight and normally simple to use. Some libraries are bigger than others!
+                </p>
+
+                <ul>
+                    <li>
+                        <h3><a href="clist.html">clist</a>: Linked list implementation</h3>
+
+                        <p>
+                            The clist library provides a basic doubly linked list structure, as well as a multitude of functions for using lists.
+                        </p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="building">
+                <h2>Compiling C Utility Libraries</h2>
+
+                <p>
+                    Libraries within the C Utils collection use <a href="https://cmake.org/">CMake</a> for building/compiling.
+
+                    <br><br>
+
+                    The command below compiles <b>all</b> utility libraries in release configuration:
+                    <br><code>cmake . -B build/ -DCMAKE_BUILD_TYPE=Release</code>
+
+                    <br><br>
+
+                    Generally speaking, you do not need to compile the libraries in debug configuration unless you are contributing <i>(tysm ^^)</i>
+                    or otherwise just want to compile test executables alongside them. On that note, to compile tests (using the GoogleTest
+                    framework), build with debug configuration and the <code>-DCUTILS_TESTS=ON</code> flag. Note that <code>-Wall</code> + equivalents
+                    are enabled when in debug mode, so all warnings are shown and they are treated as errors.
+
+                    <br><br>
+
+                    Individual utility libraries can be excluded from the build chain with individual compilation flags. They correspond to the
+                    relevant library name; see the root <code>CMakeLists.txt</code> for specific option names. For example,
+                    <code>-DCUTILS_CLIST=OFF</code> disables compiling the clist library. All libraries are compiled by default.
+                </p>
+            </section>
+
+            <section id="documentation-help">
+                <h2>Using this manual</h2>
+
+                <p>
+                    Within this documentation, information you should take note of is highlighted as such:
+                </p>
+				<span class="note">
+					This is an example of a note.
+				</span>
+				<br>
+				More important information is highlighted as a warning, like so:
+				<span class="warning">
+					This is an example of a warning.
+				</span>
+            </section>
+
+            <section>
+                <h2 id="license">License</h2>
+                <p>
+                    The C Utils Project is licensed under the <b>MIT License</b>:
+                </p>
+<pre>
+MIT License
+
+Copyright (c) 2023 Jack Bennett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre>
             </section>
         </div>
 
@@ -60,6 +153,8 @@
     <hr>
 
     <a href="https://github.com/kosude/cutils">Upstream URL</a>
+
+    <a href="#">Go to top</a>
 
     <hr>
 </footer>

@@ -1,0 +1,442 @@
+<!-- This file has been automatically generated! Edits will be overwritten on the next build! -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+        <title>clist : cutils</title>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="/style/global.css">
+<link rel="stylesheet" href="/style/header.css">
+<link rel="stylesheet" href="/style/notes.css">
+<link rel="stylesheet" href="/style/responsive.css">
+
+<link id="favicon" rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+
+	</head>
+
+	<body>
+        <header>
+    <h1>cutils.documentation</h1>
+
+    <nav id="nav-links">
+        <a href="/">home</a>
+        <a href="/clist">clist</a>
+    </nav>
+
+    <hr>
+</header>
+
+
+        <div class="wrapper">
+            <div id="title">
+                <h1>clist</h1>
+                <p>Doubly linked list structure and related functions.</p>
+
+                <section class="hoz-collapse" id="hoz-collapse-3">
+                    <section>
+                        <h4 class="index-heading">Data types</h4>
+                        <ul>
+                            <li><a href="#clist_t">clist_t</a></li>
+                            <li><a href="#clistitr_t">clistitr_t</a></li>
+                            <li><a href="#clistval_t">clistval_t</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="index-heading">List manipulation</h4>
+                        <ul>
+                            <li><a href="#clistpush">clistpush()</a></li>
+                            <li><a href="#clistinsert">clistinsert()</a></li>
+                            <li><a href="#clistpop">clistpop()</a></li>
+                            <li><a href="#clistremove">clistremove()</a></li>
+                            <li><a href="#clistfree">clistfree()</a></li>
+                        </ul>
+
+                        <h4 class="index-heading">List access</h4>
+                        <ul>
+                            <li><a href="#clistlen">clistlen()</a></li>
+                            <li><a href="#clistget">clistget()</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="index-heading">List traversal</h4>
+                        <ul>
+                            <li><a href="#clistbegin">clistbegin()</a></li>
+                            <li><a href="#clistend">clistend()</a></li>
+                            <li><a href="#clistat">clistat()</a></li>
+                            <li><a href="#clistitrnext">clistitrnext()</a></li>
+                            <li><a href="#clistitrprev">clistitrprev()</a></li>
+                            <li><a href="#clistitrget">clistitrget()</a></li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
+
+            <hr>
+
+            <section id="docs">
+                <h2 style="text-decoration: underline">Data types</h2>
+
+                <section>
+                    <section>
+                        <h2 id="clist_t"><code>clist_t</code></h2>
+
+                        <h3>Summary</h3>
+                        <p>
+                            An <b>opaque</b> doubly linked list structure. The values stored within a clist_t are of <a href="#clistval_t">clistval_t</a>
+                            type.
+                        </p>
+
+                        <span class="note">
+                            If a list is empty, its pointer (as it is heap-allocated) is set to NULL. Therefore, you can safely guarantee a list is empty
+                            if its handle is equal to NULL.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="clistitr_t"><code>clistitr_t</code></h2>
+
+                        <h3>Summary</h3>
+                        <p>
+                            An iterator type for traversing a <a href="#clist_t">clist_t</a> list. This type refers to a void pointer; however, in
+                            practice, clistitr_t instances point to a node within the list they are iterating. This node structure is not accessible, but
+                            its value can be accessed with <a href="#clistitrget">clistitrget()</a>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistval_t"><code>clistval_t</code></h2>
+
+                        <h3>Summary</h3>
+                        <p>
+                            The type of data stored within <a href="#clist_t">clist_t</a> lists.
+                        </p>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">List manipulation</h2>
+
+                <section>
+                    <section>
+                        <h2 id="clistpush"><code>int clistpush(clist_t **dest, clistval_t value)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>dest</b></code> location of the clist_t pointer to push to.</li>
+                            <li><code><b>value</b></code> value to push to the list.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>Normally, the new length of the list.</li>
+                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.</b>
+                            </li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Push a value to the <b>end</b> of a linked list, returning its new length. If the list is currently empty, necessary memory
+                            will be allocated for it within this function.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistinsert"><code>int clistinsert(clist_t **dest, clistval_t value, unsigned int index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>dest</b></code> location of the clist_t pointer to insert into.</li>
+                            <li><code><b>value</b></code> value to insert into the list.</li>
+                            <li><code><b>index</b></code> index within the list that the value will be inserted at.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>Normally, the new length of the list.</li>
+                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.</b>
+                            </li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Insert a value into a linked list at the given index, returning its new length. If the list is currently empty, necessary
+                            memory will be allocated for it within this function.
+                            <br><br>
+                            The index given refers to the location the new item will be at. For example, if an index of <code>0</code> is given, the value
+                            is inserted at the beginning of the list.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistpop"><code>clistval_t clistpop(clist_t **dest)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>dest</b></code> location of the clist_t pointer to pop from.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value 'popped off' from (detached from) the <b>end</b> of the list.</li>
+                            <li>If the list is empty, 0 is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Detach the last value in the given list. The heap-allocated internal copy of the value is freed, and a stack copy of this
+                            value is returned.
+                        </p>
+
+                        <span class="note">
+                            If the list is empty after this function call (i.e. the last value is popped), the list is automatically freed, and
+                            <code>(*dest)</code> is set to NULL.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="clistremove"><code>clistval_t clistremove(clist_t **dest, unsigned int index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>dest</b></code> location of the clist_t pointer to remove a value from.</li>
+                            <li><code><b>index</b></code> index of the value to remove from the list.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value removed from the list.</li>
+                            <li>If the list is empty or if the index is outside the range of the list, 0 is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Detach the value at the given index from the list. The heap-allocated internal copy of the value is freed, and a stack copy of
+                            this value is returned.
+                        </p>
+
+                        <span class="note">
+                            If the list is empty after this function call (i.e. the last value is removed), the list is automatically freed, and
+                            <code>(*dest)</code> is set to NULL.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="clistfree"><code>void clistfree(clist_t **dest)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>dest</b></code> location of the clist_t pointer to deallocate/free memory for.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Free memory allocated for the given list. This is equivalent to individually popping each value from the end of the list until
+                            it is empty. <b>(*dest) is set to NULL</b>. Re-using the list pointer can be done by simply pushing new values to it again.
+                        </p>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">List access</h2>
+
+                <section>
+                    <section>
+                        <h2 id="clistlen"><code>unsigned int clistlen(clist_t *list)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>list</b></code> the clist_t pointer to get the length of.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The length of the list.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Get and return the length of the given list. If the list pointer is NULL, then the list is presumed empty and 0 is returned.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistget"><code>clistval_t clistget(clist_t *list, unsigned int index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>list</b></code> the clist_t pointer to get the value from.</li>
+                            <li><code><b>index</b></code> the index of the value to retrieve.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value at the specified index within the given list.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Get and return the value from the list at the given index.
+                        </p>
+
+                        <span class="warning">
+                            If the list is empty, or if the given index is outside the bounds of the list range, similar to an array, a <b>segmentation
+                            fault will occur.</b>
+                        </span>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">List traversal</h2>
+
+                <section>
+                    <section>
+                        <h2 id="clistbegin"><code>clistitr_t clistbegin(clist_t *list)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>list</b></code> the clist_t pointer to iterate.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>An iterator pointing to the first node within the list.</li>
+                            <li>If the list is empty, NULL is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return an iterator pointing to the first node within the list.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistend"><code>clistitr_t clistend(clist_t *list)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>list</b></code> the clist_t pointer to iterate.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>An iterator pointing to the last node within the list.</li>
+                            <li>If the list is empty, NULL is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return an iterator pointing to the last node within the list.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistat"><code>clistitr_t clistat(clist_t *list, unsigned int index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>list</b></code> the clist_t pointer to iterate.</li>
+                            <li><code><b>index</b></code> the index of the list node to iterate from.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>An iterator pointing to the node at the specified index within the list.</li>
+                            <li>If the list is empty, or if the index is outside the bounds of the list range, NULL is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return an iterator pointing to the node at the specified index within the list.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="clistitrnext"><code>clistitr_t clistitrnext(clistitr_t it)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>it</b></code> the iterator to advance from.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>An iterator pointing to the list node <b>after</b> the one that <code>it</code> is pointing to.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return an iterator pointing to the node <b>after</b> the given iterator.
+                        </p>
+
+                        <span class="warning">
+                            Note that lists are terminated with NULL; this means that advancing from the last node within a list will return NULL.
+                            Therefore, ensure that iterator <code>it</code> is <b>not</b> NULL, or a segmentation fault will occur.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="clistitrprev"><code>clistitr_t clistitrprev(clistitr_t it)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>it</b></code> the iterator to reduce from.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>An iterator pointing to the list node <b>before</b> the one that <code>it</code> is pointing to.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return an iterator pointing to the node <b>before</b> the given iterator.
+                        </p>
+
+                        <span class="warning">
+                            Note that lists are initiated with NULL; this means that reducing from the first node within a list will return NULL.
+                            Therefore, ensure that iterator <code>it</code> is <b>not</b> NULL, or a segmentation fault will occur.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="clistitrget"><code>clistval_t clistitrget(clistitr_t it)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>it</b></code> the iterator to read the value from.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value held by iterator <code>it</code>.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Return the value stored in the list at the node pointed to by the given iterator.
+                        </p>
+
+                        <span class="warning">
+                            If iterator <code>it</code> is NULL, a segmentation fault will occur.
+                        </span>
+                    </section>
+                </section>
+            </section>
+        </div>
+
+        <footer>
+    <hr>
+
+    <a href="https://github.com/kosude/cutils">Upstream URL</a>
+
+    <a href="#">Go to top</a>
+
+    <hr>
+</footer>
+
+	</body>
+</html>
