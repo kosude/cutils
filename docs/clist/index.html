@@ -66,13 +66,13 @@
 
                         <h3>Summary</h3>
                         <p>
-                            An <b>opaque</b> doubly linked list structure. The values stored within a clist_t are of <a href="#clistval_t">clistval_t</a>
-                            type.
+                            An <b>opaque</b> doubly linked list structure. The values stored within a clist_t are of
+                            <a href="#clistval_t">clistval_t</a> type.
                         </p>
 
                         <span class="note">
-                            If a list is empty, its pointer (as it is heap-allocated) is set to NULL. Therefore, you can safely guarantee a list is empty
-                            if its handle is equal to NULL.
+                            If a list is empty, its pointer (as it is heap-allocated) is set to NULL. Therefore, you can safely guarantee a list is
+                            empty if its handle is equal to NULL.
                         </span>
                     </section>
 
@@ -82,8 +82,8 @@
                         <h3>Summary</h3>
                         <p>
                             An iterator type for traversing a <a href="#clist_t">clist_t</a> list. This type refers to a void pointer; however, in
-                            practice, clistitr_t instances point to a node within the list they are iterating. This node structure is not accessible, but
-                            its value can be accessed with <a href="#clistitrget">clistitrget()</a>.
+                            practice, clistitr_t instances point to a node within the list they are iterating. This node structure is not accessible,
+                            but its value can be accessed with <a href="#clistitrget">clistitrget()</a>.
                         </p>
                     </section>
 
@@ -113,14 +113,14 @@
                         <h3>Returns</h3>
                         <ul>
                             <li>Normally, the new length of the list.</li>
-                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.</b>
-                            </li>
+                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.
+                            </b></li>
                         </ul>
 
                         <h3>Summary</h3>
                         <p>
-                            Push a value to the <b>end</b> of a linked list, returning its new length. If the list is currently empty, necessary memory
-                            will be allocated for it within this function.
+                            Push a value to the <b>end</b> of a linked list, returning its new length. If the list is currently empty, necessary
+                            memory will be allocated for it within this function.
                         </p>
                     </section>
 
@@ -137,8 +137,8 @@
                         <h3>Returns</h3>
                         <ul>
                             <li>Normally, the new length of the list.</li>
-                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.</b>
-                            </li>
+                            <li>If there is a memory error when allocating space for the new value, 0 is returned. <b>0 is never returned otherwise.
+                            </b></li>
                         </ul>
 
                         <h3>Summary</h3>
@@ -146,8 +146,8 @@
                             Insert a value into a linked list at the given index, returning its new length. If the list is currently empty, necessary
                             memory will be allocated for it within this function.
                             <br><br>
-                            The index given refers to the location the new item will be at. For example, if an index of <code>0</code> is given, the value
-                            is inserted at the beginning of the list.
+                            The index given refers to the location the new item will be at. For example, if an index of <code>0</code> is given, the
+                            value is inserted at the beginning of the list.
                         </p>
                     </section>
 
@@ -194,8 +194,8 @@
 
                         <h3>Summary</h3>
                         <p>
-                            Detach the value at the given index from the list. The heap-allocated internal copy of the value is freed, and a stack copy of
-                            this value is returned.
+                            Detach the value at the given index from the list. The heap-allocated internal copy of the value is freed, and a stack
+                            copy of this value is returned.
                         </p>
 
                         <span class="note">
@@ -214,8 +214,9 @@
 
                         <h3>Summary</h3>
                         <p>
-                            Free memory allocated for the given list. This is equivalent to individually popping each value from the end of the list until
-                            it is empty. <b>(*dest) is set to NULL</b>. Re-using the list pointer can be done by simply pushing new values to it again.
+                            Free memory allocated for the given list. This is equivalent to individually popping each value from the end of the list
+                            until it is empty. <b>(*dest) is set to NULL</b>. Re-using the list pointer can be done by simply pushing new values to it
+                            again.
                         </p>
                     </section>
                 </section>
@@ -239,7 +240,8 @@
 
                         <h3>Summary</h3>
                         <p>
-                            Get and return the length of the given list. If the list pointer is NULL, then the list is presumed empty and 0 is returned.
+                            Get and return the length of the given list. If the list pointer is NULL, then the list is presumed empty and 0 is
+                            returned.
                         </p>
                     </section>
 
@@ -263,8 +265,8 @@
                         </p>
 
                         <span class="warning">
-                            If the list is empty, or if the given index is outside the bounds of the list range, similar to an array, a <b>segmentation
-                            fault will occur.</b>
+                            If the list is empty, or if the given index is outside the bounds of the list range, similar to an array, a
+                            <b>segmentation fault will occur.</b>
                         </span>
                     </section>
                 </section>

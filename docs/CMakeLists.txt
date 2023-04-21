@@ -12,3 +12,5 @@ file(COPY "${CMAKE_CURRENT_LIST_DIR}/favicon.png" DESTINATION "${CMAKE_CURRENT_B
 configure_file("${CMAKE_CURRENT_LIST_DIR}/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/index.html" @ONLY)
 
 configure_file("${CMAKE_CURRENT_LIST_DIR}/clist/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/clist/index.html" @ONLY)
+
+configure_file("${CMAKE_CURRENT_LIST_DIR}/cio/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/cio/index.html" @ONLY)

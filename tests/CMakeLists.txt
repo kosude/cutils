@@ -15,6 +15,7 @@ endmacro()
 
 if (CUTILS_CLIST)
     cutils_add_int_test("str_linked_list" clist)
+    cutils_add_int_test("colours" cio)
 
     cutils_add_unit_test("clist" clist)
 endif()

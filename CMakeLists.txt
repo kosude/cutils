@@ -38,6 +38,16 @@ if (CUTILS_CLIST)
     target_compile_options("clist" PRIVATE ${CUTILS_COMPILE_OPTIONS})
 endif()
 
+option(CUTILS_CIO "Build cio library" ON)
+if (CUTILS_CIO)
+    add_library("cio" ${LIB_BUILD_TYPE}
+        "cio/cio.c"
+    )
+
+    target_include_directories("cio" PUBLIC "${CMAKE_CURRENT_LIST_DIR}/cio")
+    target_compile_options("cio" PRIVATE ${CUTILS_COMPILE_OPTIONS})
+endif()
+
 option(CUTILS_TESTS "Build cutils unit tests (only with -DCMAKE_BUILD_TYPE=Debug)" OFF)
 
 # again assuming here that only lib developers are building in debug; users do not need tests for production use i.e. release config.

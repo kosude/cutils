@@ -1,0 +1,95 @@
+@WARNING_COMMENT@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+        <title>cio : cutils</title>
+        @TEMPLATE_head@
+	</head>
+
+	<body>
+        @TEMPLATE_header@
+
+        <div class="wrapper">
+            <div id="title">
+                <h1><span class="parent">cutils / </span>cio</h1>
+                <p>Cross-platform console input/output and logging functions.</p>
+
+                <section class="hoz-collapse" id="hoz-collapse-3">
+                    <section>
+                        <h4 class="index-heading">Data types</h4>
+                        <ul>
+                            <li><a href="#ciocol_t">ciocol_t</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="index-heading">Output colourisation</h4>
+                        <ul>
+                            <li><a href="#ciocolset">ciocolset()</a></li>
+                            <li><a href="#ciocoldef">ciocoldef()</a></li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
+
+            <hr>
+
+            <section id="docs">
+                <h2 style="text-decoration: underline">Data types</h2>
+
+                <section>
+                    <section>
+                        <h2 id="ciocol_t"><code>ciocol_t</code></h2>
+
+                        <h3>Summary</h3>
+                        <p>
+                            An enumerator containing available console output colour options. This type is separately provided by
+                            <code><b>&lt;cioenum.h&gt;</b></code>.
+                        </p>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">Output colourisation</h2>
+
+                <section>
+                    <section>
+                        <h2 id="ciocolset"><code>void ciocolset(uint8_t fg, uint8_t bg, FILE *stream)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>fg</b></code> foreground colour (either integer or ciocol_t enum).</li>
+                            <li><code><b>bg</b></code> background colour (either integer or ciocol_t enum).</li>
+                            <li><code><b>stream</b></code> NULL (defaults to stdout) or the stream for which to set the output colour.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Update the colour used by the terminal emulator for output when writing to the specified stream.
+                            <br><br>
+                            Pass <code>0xFF</code> to fg or bg to skip updating that colour value. If both parameters are specified as
+                            <code>0xff</code>, nothing will happen.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="ciocoldef"><code>void ciocoldef(FILE *stream)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>stream</b></code> NULL (defaults to stdout) or the stream for which to set the output colour.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Set the colour of the output sent to the specified stream to the default value.
+                        </p>
+                    </section>
+                </section>
+            </section>
+        </div>
+
+        @TEMPLATE_footer@
+	</body>
+</html>
