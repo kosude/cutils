@@ -11,11 +11,8 @@
 #   define WIN32_LEAN_AND_MEAN
 #   include <Windows.h>
 #else
-#   include <stdio.h>
 #   include <string.h>
-#endif
 
-#if defined(__unix__) || defined(__unix)
     static const char *__getfgcode(uint8_t fg) {
         // Courtesy of ProjectPhysX on StackOverflow
         switch(fg) {
@@ -118,7 +115,7 @@ void ciocolstateset(uint8_t fg, uint8_t bg, FILE *stream) {
 
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, bg << 4 | fg);
-#   elif defined(__unix__) || defined(__unix)
+#   else
         fprintf(stream, "%s", ciocol(fg, bg).code);
 #   endif
 }
@@ -132,7 +129,7 @@ void ciocolstatedef(FILE *stream) {
         // TODO: pls test
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, 7);
-#   elif defined(__unix__) || defined(__unix)
+#   else
         fprintf(stream, "%s", ciocoldef().code);
 #   endif
 }

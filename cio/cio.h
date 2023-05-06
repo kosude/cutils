@@ -12,9 +12,8 @@
     extern "C" {
 #endif // __cplusplus
 
+#include <stdio.h>
 #include <stdint.h>
-
-typedef struct _IO_FILE FILE;
 
 
 /************************************************************************/
