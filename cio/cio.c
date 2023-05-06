@@ -119,7 +119,7 @@ void ciocolstateset(uint8_t fg, uint8_t bg, FILE *stream) {
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, bg << 4 | fg);
 #   elif defined(__unix__) || defined(__unix)
-        fprintf(stream, ciocol(fg, bg).code);
+        fprintf(stream, "%s", ciocol(fg, bg).code);
 #   endif
 }
 
@@ -133,6 +133,6 @@ void ciocolstatedef(FILE *stream) {
         static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handle, 7);
 #   elif defined(__unix__) || defined(__unix)
-        fprintf(stream, ciocoldef().code);
+        fprintf(stream, "%s", ciocoldef().code);
 #   endif
 }
