@@ -26,6 +26,7 @@
         <a href="/cutils/">home</a>
         <a href="/cutils/clist/">clist</a>
         <a href="/cutils/cio/">cio</a>
+        <a href="/cutils/carray/">carray</a>
     </nav>
 
     <hr>
@@ -46,7 +47,7 @@
 
                     <br><br>
 
-                    As an extra point, this project serves to replace and improve upon one of my older endeavours, <code>zetaml</code>, which was more
+                    As an extra point, this project serves to replace and improve upon an older iteration, <code>zetaml</code>, which was more
                     specifically a maths library for graphics development.
 
                     <br><br>
@@ -81,6 +82,13 @@
                             The cio library provides extra cross-platform utility functions for console output and log messages.
                         </p>
                     </li>
+                    <li>
+                        <h3><a href="/cutils/carray">carray</a>: Dynamic array implementation</h3>
+
+                        <p>
+                            The carray library provides an implementation of a dynamic array structure with a variety of extra operations.
+                        </p>
+                    </li>
                 </ul>
             </section>
 
@@ -108,6 +116,19 @@
                     relevant library name; see the root <code>CMakeLists.txt</code> for specific option names. For example,
                     <code>-DCUTILS_CLIST=OFF</code> disables compiling the clist library. All libraries are compiled by default.
                 </p>
+
+                <h2>Compiling HTML documentation</h2>
+
+                <p>
+                    The documentation you're looking at right now is also compiled using CMake. It can be accessed through its deployment via
+                    GitHub Pages, or compiled locally as part of the build pipeline. This manual does not use any automation tools like documentation
+                    generators (e.g. Doxygen), just simple hand-typed HTML and CSS, as you can probably tell. However, some parts (like the header)
+                    are templated for convenience, hence the need for CMake.
+
+                    <br><br>
+
+                    To build the documentation yourself, apply the <code>-DCUTILS_DOCS=ON</code> flag. This is not enabled by default!
+                </p>
             </section>
 
             <section id="documentation-help">
@@ -124,6 +145,12 @@
 				<span class="warning">
 					This is an example of a warning.
 				</span>
+
+                <br>
+
+                <p>
+                    Do note that this webpage does not use any JavaScript and is functionally usable without any CSS!
+                </p>
             </section>
 
             <section>
