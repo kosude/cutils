@@ -48,6 +48,16 @@ if (CUTILS_CIO)
     target_compile_options("cio" PRIVATE ${CUTILS_COMPILE_OPTIONS})
 endif()
 
+option(CUTILS_CARRAY "Build carray library" ON)
+if (CUTILS_CARRAY)
+    add_library("carray" ${LIB_BUILD_TYPE}
+        "carray/carray.c"
+    )
+
+    target_include_directories("carray" PUBLIC "${CMAKE_CURRENT_LIST_DIR}/carray")
+    target_compile_options("carray" PRIVATE ${CUTILS_COMPILE_OPTIONS})
+endif()
+
 option(CUTILS_TESTS "Build cutils unit tests (only with -DCMAKE_BUILD_TYPE=Debug)" OFF)
 
 # again assuming here that only lib developers are building in debug; users do not need tests for production use i.e. release config.

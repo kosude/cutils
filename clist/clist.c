@@ -22,7 +22,7 @@ typedef struct clist_t {
     __clistnode_t *head;
     __clistnode_t *tail;
 
-    unsigned int length;
+    uint32_t length;
 } clist_t;
 
 
@@ -30,7 +30,7 @@ typedef struct clist_t {
 /*                           cutils public API                          */
 /************************************************************************/
 
-int clistpush(clist_t **dest, clistval_t value) {
+uint32_t clistpush(clist_t **dest, clistval_t value) {
     __clistnode_t *node = malloc(sizeof(__clistnode_t));
     if (!node) {
         return 0;
@@ -70,7 +70,7 @@ int clistpush(clist_t **dest, clistval_t value) {
     return ++list->length;
 }
 
-int clistinsert(clist_t **dest, clistval_t value, unsigned int index) {
+uint32_t clistinsert(clist_t **dest, clistval_t value, uint32_t index) {
     clist_t *list = (*dest);
 
     if (!list || index == list->length) {
@@ -135,7 +135,7 @@ clistval_t clistpop(clist_t **dest) {
     return buf;
 }
 
-clistval_t clistremove(clist_t **dest, unsigned int index) {
+clistval_t clistremove(clist_t **dest, uint32_t index) {
     clistval_t buf = 0;
 
     clist_t *list = (*dest);
@@ -184,22 +184,22 @@ void clistfree(clist_t **dest) {
     }
 
     // store len in buffer as clistpop() decrements it
-    unsigned int lenbuf = list->length;
+    uint32_t lenbuf = list->length;
 
     // list is silently freed when the last element is detached
-    for (unsigned int i = 0; i < lenbuf; i++) {
+    for (uint32_t i = 0; i < lenbuf; i++) {
         clistpop(dest);
     }
 }
 
-unsigned int clistlen(clist_t *list) {
+uint32_t clistlen(clist_t *list) {
     if (!list) {
         return 0;
     }
     return list->length;
 }
 
-clistval_t clistget(clist_t *list, unsigned int index) {
+clistval_t clistget(clist_t *list, uint32_t index) {
     return ((__clistnode_t *) clistat(list, index))->value;
 }
 
@@ -217,14 +217,14 @@ clistitr_t clistend(clist_t *list) {
     return (clistitr_t) list->tail;
 }
 
-clistitr_t clistat(clist_t *list, unsigned int index) {
+clistitr_t clistat(clist_t *list, uint32_t index) {
     if (!list) {
         return NULL;
     }
 
     __clistnode_t *headptr = list->head;
 
-    for (unsigned int i = 0; i < index && headptr != NULL; i++) {
+    for (uint32_t i = 0; i < index && headptr != NULL; i++) {
         headptr = headptr->next;
     }
 

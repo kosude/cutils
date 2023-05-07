@@ -48,7 +48,7 @@ typedef intptr_t clistval_t;
  * @return Normally, the new length of the list.
  * @return If there is a memory error when allocating space for the new value, 0 is returned. 0 is never returned otherwise.
  */
-int clistpush(
+uint32_t clistpush(
     clist_t **dest,
     clistval_t value
 );
@@ -65,10 +65,10 @@ int clistpush(
  * @return Normally, the new length of the list.
  * @return If there is a memory error when allocating space for the new value, 0 is returned. 0 is never returned otherwise.
  */
-int clistinsert(
+uint32_t clistinsert(
     clist_t **dest,
     clistval_t value,
-    unsigned int index
+    uint32_t index
 );
 
 /**
@@ -99,7 +99,7 @@ clistval_t clistpop(
  */
 clistval_t clistremove(
     clist_t **dest,
-    unsigned int index
+    uint32_t index
 );
 
 /**
@@ -119,7 +119,7 @@ void clistfree(
  *
  * @return The length of the list.
  */
-unsigned int clistlen(
+uint32_t clistlen(
     clist_t *list
 );
 
@@ -135,7 +135,7 @@ unsigned int clistlen(
  */
 clistval_t clistget(
     clist_t *list,
-    unsigned int index
+    uint32_t index
 );
 
 /**
@@ -173,7 +173,7 @@ clistitr_t clistend(
  */
 clistitr_t clistat(
     clist_t *list,
-    unsigned int index
+    uint32_t index
 );
 
 /**

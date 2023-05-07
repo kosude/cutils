@@ -18,4 +18,5 @@ if (CUTILS_CLIST)
     cutils_add_int_test("colours" cio)
 
     cutils_add_unit_test("clist" clist)
+    cutils_add_unit_test("carray" carray)
 endif()

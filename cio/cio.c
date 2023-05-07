@@ -60,6 +60,11 @@
     }
 #endif
 
+
+/************************************************************************/
+/*                           cutils public API                          */
+/************************************************************************/
+
 ciocolbuf_t ciocol(uint8_t fg, uint8_t bg) {
 #   if defined(_WIN32)
         ciocolstateset(fg, bg, NULL);
@@ -100,7 +105,7 @@ void ciocolstateset(uint8_t fg, uint8_t bg, FILE *stream) {
 #   if defined(_WIN32)
         // TODO: pls test
 
-        unsigned int colourAttribute = 0;
+        unsigned uint32_t colourAttribute = 0;
 
         if (fg != 0xFF && bg != 0xFF) {
             // both values are given
