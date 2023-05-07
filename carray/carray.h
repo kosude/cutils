@@ -20,6 +20,11 @@
 /************************************************************************/
 
 /**
+ * The type of data stored within carray_t arrays.
+ */
+typedef intptr_t carrayval_t;
+
+/**
  * A structure representing a dynamically resizable array.
  *
  * To check if a carray_t is empty, check the size, not the capacity. The capacity will always be at least 1 in most cases - usually, it is larger
@@ -40,11 +45,6 @@ typedef struct carray_t {
      */
     uint32_t size;
 } carray_t;
-
-/**
- * The type of data stored within carray_t arrays.
- */
-typedef intptr_t carrayval_t;
 
 /**
  * Populate a carray_t struct and return it on the stack.
