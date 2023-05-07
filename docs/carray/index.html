@@ -1,0 +1,247 @@
+@WARNING_COMMENT@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+        <title>carray : cutils</title>
+        @TEMPLATE_head@
+	</head>
+
+	<body>
+        @TEMPLATE_header@
+
+        <div class="wrapper">
+            <div id="title">
+                <h1><span class="parent">cutils / </span>carray</h1>
+                <p>Dynamic array implementation and related functions.</p>
+
+                <section class="hoz-collapse" id="hoz-collapse-3">
+                    <section>
+                        <h4 class="index-heading">Data types</h4>
+                        <ul>
+                            <li><a href="#carray_t">carray_t</a></li>
+                            <li><a href="#carrayval_t">carrayval_t</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="index-heading">Array lifetime</h4>
+                        <ul>
+                            <li><a href="#carraynew">carraynew()</a></li>
+                            <li><a href="#carrayfree">carrayfree()</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="index-heading">Array manipulation</h4>
+                        <ul>
+                            <li><a href="#carraypush">carraypush()</a></li>
+                            <li><a href="#carrayinsert">carrayinsert()</a></li>
+                            <li><a href="#carraypop">carraypop()</a></li>
+                            <li><a href="#carrayremove">carrayremove()</a></li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
+
+            <hr>
+
+            <section id="docs">
+                <h2 style="text-decoration: underline">Data types</h2>
+
+                <section>
+                    <section>
+                        <h2 id="carray_t"><code>carray_t</code></h2>
+
+                        <h3>Members</h3>
+                        <ul>
+                            <li><code><b>data</b></code> the array of data (stored as <a href="#carrayval_t">carrayval_t</a> type)</li>
+                            <li><code><b>capacity</b></code> the allocated size of array <code>data</code>.</li>
+                            <li><code><b>size</b></code> the defined, accessible length of array <code>data</code>.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            A structure representing a dynamically resizable array.
+                            <br><br>
+                            To check if a carray_t is empty, check the <b>size, not the capacity</b>. The capacity will always be at least 1 in most
+                            cases - usually, it is larger than the size.  When the array is resized (i.e. when it is added to and the size exceeds the
+                            capacity), its capacity is increased by a multiplier of <code>1.5</code>, and a constant of <code>1</code> is added.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="carrayval_t"><code>carrayval_t</code></h2>
+
+                        <h3>Summary</h3>
+                        <p>
+                            The type of data stored within <a href="#carray_t">carray_t</a> arrays.
+                        </p>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">Array lifetime</h2>
+
+                <section>
+                    <section>
+                        <h2 id="carraynew"><code>carray_t carraynew(uint32_t cap)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>cap</b></code> the initial capability of the array.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>Normally, the new stack-allocated array.</li>
+                            <li>If there was a memory allocation error, the <code>capacity</code> member of the array will be 0. <b>Otherwise, the
+                            capacity is always at least 1.</b></li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Populate a carray_t struct and return it on the stack.
+                            <br><br>
+                            The array is clamped to a minimum capacity of 1, for memory allocation purposes. Therefore, if 0 is passed to the
+                            <code>cap</code> parameter, the array will be initialised with a capacity of 1. There will be no data set, however, and
+                            so the length is 0 (regardless of the value passed to <code>cap</code>).
+                            <br><br>
+                            The array structure is stack-allocated, but the <code>data</code> member of the array (the actual array of data) is on the
+                            heap.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="carrayfree"><code>void carrayfree(carray_t *arr)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>arr</b></code> the array to deallocate memory from.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Free memory allocated for the array data.
+                        </p>
+                    </section>
+                </section>
+
+                <hr>
+                <h2 style="text-decoration: underline">Array manipulation</h2>
+
+                <section>
+                    <section>
+                        <h2 id="carraypush"><code>uint32_t carraypush(carray_t *arr, carrayval_t value)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>arr</b></code> the array to manipulate.</li>
+                            <li><code><b>value</b></code> the value to push onto the end of the array.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>Normally, the new length of the array.</li>
+                            <li>If the array had to be expanded in capacity and there was a memory error, 0 is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Append the given <code>value</code> onto the end of array <code>arr</code>.
+                            <br><br>
+                            In cases where the new length of the array exceeds its capacity, it will be resized by a certain factor and additional
+                            constant. See the documentation for <a href="#carray_t">carray_t</a> for more information.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="carrayinsert"><code>uint32_t carrayinsert(carray_t *arr, carrayval_t value, uint32_t index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>arr</b></code> the array to manipulate.</li>
+                            <li><code><b>value</b></code> the value to insert into the array.</li>
+                            <li><code><b>index</b></code> the index at which to insert the given <code>value</code>.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>Normally, the new length of the array.</li>
+                            <li>If the array had to be expanded in capacity and there was a memory error, 0 is returned.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Insert the given <code>value</code> into array <code>arr</code> at the given <code>index</code>. The new value will be
+                            accessible at that index.
+                            <br><br>
+                            In cases where the new length of the array exceeds its capacity, it will be resized by a certain factor and additional
+                            constant. See the documentation for <a href="#carray_t">carray_t</a> for more information.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 id="carraypop"><code>carrayval_t carraypop(carray_t *arr)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>arr</b></code> the array to manipulate.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value popped from the end of the array.</li>
+                            <li>If the array was shrunk in capacity and there was a memory error, 0 is returned. 0 is also returned if the array is
+                            empty.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Remove ('pop') the last value from the end of the given array <code>arr</code> and return it.
+                            <br><br>
+                            If the new length of the array is less than a quarter of the array's capacity, the array's allocated memory is shrunk by
+                            half in order to avoid using empty space.
+                        </p>
+
+                        <span class="note">
+                            If the array is empty when this function is called, or as the result of this function, any remaining capacity is freed and
+                            the array's data is set to NULL. The array can still be used as normal, and explicitly free'ing it is still fine to do.
+                        </span>
+                    </section>
+
+                    <section>
+                        <h2 id="carrayremove"><code>carrayval_t carrayremove(carray_t *arr, uint32_t index)</code></h2>
+
+                        <h3>Arguments</h3>
+                        <ul>
+                            <li><code><b>arr</b></code> the array to manipulate.</li>
+                            <li><code><b>index</b></code> the index of the value to remove from the array.</li>
+                        </ul>
+
+                        <h3>Returns</h3>
+                        <ul>
+                            <li>The value removed from the array.</li>
+                            <li>If the array was shrunk in capacity and there was a memory error, 0 is returned. 0 is also returned if the array is
+                            empty.</li>
+                        </ul>
+
+                        <h3>Summary</h3>
+                        <p>
+                            Remove the value at <code>index</code> from the given array <code>arr</code> and return it.
+                            <br><br>
+                            If the new length of the array is less than a quarter of the array's capacity, the array's allocated memory is shrunk by
+                            half in order to avoid using empty space.
+                        </p>
+
+                        <span class="note">
+                            If the array is empty when this function is called, or as the result of this function, any remaining capacity is freed and
+                            the array's data is set to NULL. The array can still be used as normal, and explicitly free'ing it is still fine to do.
+                        </span>
+                    </section>
+                </section>
+            </section>
+        </div>
+
+        @TEMPLATE_footer@
+	</body>
+</html>

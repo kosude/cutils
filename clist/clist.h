@@ -72,7 +72,7 @@ uint32_t clistinsert(
 );
 
 /**
- * @brief Detach the last value in the given list. The heap-allocated internal copy of the value is freed, and a stack copy of this value is returned.
+ * Detach the last value in the given list. The heap-allocated internal copy of the value is freed, and a stack copy of this value is returned.
  *
  * @note If the list is empty after this function call (i.e. the last value is popped), the list is automatically freed, and *dest is set to NULL.
  *

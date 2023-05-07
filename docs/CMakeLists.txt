@@ -14,3 +14,5 @@ configure_file("${CMAKE_CURRENT_LIST_DIR}/index.html" "${CMAKE_CURRENT_BINARY_DI
 configure_file("${CMAKE_CURRENT_LIST_DIR}/clist/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/clist/index.html" @ONLY)
 
 configure_file("${CMAKE_CURRENT_LIST_DIR}/cio/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/cio/index.html" @ONLY)
+
+configure_file("${CMAKE_CURRENT_LIST_DIR}/carray/index.html" "${CMAKE_CURRENT_BINARY_DIR}/html/carray/index.html" @ONLY)
