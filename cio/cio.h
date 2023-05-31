@@ -55,7 +55,7 @@ ciocolbuf_t ciocol(
  *
  * @return A constant buffer structure with string containing a colour code.
  */
-ciocolbuf_t ciocoldef();
+ciocolbuf_t ciocoldef(void);
 
 /**
  * Update the colour used by the terminal emulator for output when writing to the specified stream.
