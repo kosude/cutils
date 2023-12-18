@@ -54,7 +54,7 @@ typedef struct carray_t {
  *
  * The array structure is stack-allocated, but the data member of the array (the actual array of data) is on the heap.
  *
- * @param cap the initial capability of the array.
+ * @param cap the initial capacity of the array.
  *
  * @return Normally, the new stack-allocated array.
  * @return If there was a memory allocation error, the capacity member of the array will be 0. Otherwise, the capacity is always at least 1.
