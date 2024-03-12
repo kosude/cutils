@@ -47,21 +47,21 @@
 
                 <ul>
                     <li>
-                        <h3><a href="/cutils/clist">clist</a>: Linked list implementation</h3>
+                        <h3><a href="/cutils/clist.html">clist</a>: Linked list implementation</h3>
 
                         <p>
                             The clist library provides a basic doubly linked list structure, as well as a multitude of functions for using lists.
                         </p>
                     </li>
                     <li>
-                        <h3><a href="/cutils/cio">cio</a>: Console input/output and logging functions</h3>
+                        <h3><a href="/cutils/cio.html">cio</a>: Console input/output and logging functions</h3>
 
                         <p>
                             The cio library provides extra cross-platform utility functions for console output and log messages.
                         </p>
                     </li>
                     <li>
-                        <h3><a href="/cutils/carray">carray</a>: Dynamic array implementation</h3>
+                        <h3><a href="/cutils/carray.html">carray</a>: Dynamic array implementation</h3>
 
                         <p>
                             The carray library provides an implementation of a dynamic array structure with a variety of extra operations.
@@ -93,6 +93,11 @@
                     Individual utility libraries can be excluded from the build chain with individual compilation flags. They correspond to the
                     relevant library name; see the root <code>CMakeLists.txt</code> for specific option names. For example,
                     <code>-DCUTILS_CLIST=OFF</code> disables compiling the clist library. All libraries are compiled by default.
+
+                    <br><br>
+
+                    Libraries can be compiled into one binary (default behaviour), or they can be compiled to separate, isolated binaries. This is
+                    configurable via the <code>-DCUTILS_BUNDLE_LIBS=OFF</code> flag.
                 </p>
 
                 <h2>Compiling HTML documentation</h2>
